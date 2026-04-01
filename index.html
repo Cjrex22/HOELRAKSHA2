@@ -1,0 +1,2793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAKSHA — Desert Architecture</title>
+    <meta name="description" content="Spaces crafted with restraint, light, and deep presence. Not built to impress — built to endure.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            width: 100vw;
+            overflow-x: hidden;
+            overflow-y: auto;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ─── HERO CONTAINER ─── */
+        .hero {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ─── BACKGROUND IMAGE (BOTTOM LAYER) ─── */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+        }
+
+        /* ─── GIANT RAKSHA TEXT (MIDDLE LAYER — behind building) ─── */
+        .hero-text-layer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-weight: 900;
+            font-size: 18vw;
+            color: #FFFFFF;
+            text-shadow: 0px 4px 40px rgba(0,0,0,0.5), 0px 0px 120px rgba(255,255,255,0.15);
+            mix-blend-mode: normal;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+            opacity: 1;
+            user-select: none;
+            -webkit-text-stroke: 0;
+            pointer-events: auto;
+            cursor: default;
+            transition: transform 0.6s ease-in-out, text-shadow 0.6s ease-in-out;
+            will-change: transform, text-shadow;
+        }
+
+        .hero-title:hover {
+            transform: scale(1.03);
+            text-shadow: 0px 8px 60px rgba(0,0,0,0.7), 0px 4px 20px rgba(0,0,0,0.5), 0px 0px 120px rgba(255,255,255,0.1);
+        }
+
+        .hero-btn {
+            transition: transform 0.6s ease-in-out, box-shadow 0.6s ease-in-out, opacity 0.2s ease, background 0.2s ease !important;
+            will-change: transform, box-shadow;
+        }
+
+        .hero-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0px 8px 60px rgba(0,0,0,0.7), 0px 4px 20px rgba(0,0,0,0.5), 0px 0px 120px rgba(255,255,255,0.1);
+        }
+
+        /* ─── FOREGROUND IMAGE (TOP LAYER — building in front of text) ─── */
+        .hero-fg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .hero-fg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+        }
+
+        /* Mask: reveal only the building/foreground, hide the sky */
+        .hero-fg {
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0) 0%,
+                rgba(0,0,0,0) 22%,
+                rgba(0,0,0,0.15) 28%,
+                rgba(0,0,0,0.5) 33%,
+                rgba(0,0,0,0.85) 38%,
+                rgba(0,0,0,1) 44%,
+                rgba(0,0,0,1) 100%
+            );
+            mask-image: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0) 0%,
+                rgba(0,0,0,0) 22%,
+                rgba(0,0,0,0.15) 28%,
+                rgba(0,0,0,0.5) 33%,
+                rgba(0,0,0,0.85) 38%,
+                rgba(0,0,0,1) 44%,
+                rgba(0,0,0,1) 100%
+            );
+        }
+
+        /* ─── NAVIGATION BAR ─── */
+        nav {
+            position: absolute;
+            top: 20px;
+            left: 24px;
+            right: 24px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .pill {
+            background: rgba(30, 30, 30, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.30);
+            border-radius: 999px;
+            color: #FFFFFF;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 9px 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: opacity 0.2s ease, background 0.2s ease;
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        .pill:hover {
+            opacity: 0.82;
+            background: rgba(40, 40, 40, 0.65);
+        }
+
+        .pill-grid {
+            padding: 9px 13px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(30, 30, 30, 0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            font-size: 15px;
+            line-height: 1;
+            letter-spacing: 0;
+        }
+
+        .pill-grid .dots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 3px;
+            width: 16px;
+            height: 11px;
+        }
+
+        .pill-grid .dots span {
+            width: 3.5px;
+            height: 3.5px;
+            background: #FFFFFF;
+            border-radius: 50%;
+        }
+
+        .address-block {
+            background: rgba(30, 30, 30, 0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 999px;
+            padding: 8px 18px;
+            color: #FFFFFF;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 500;
+            white-space: nowrap;
+            line-height: 1;
+            opacity: 1;
+            text-decoration: none;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .address-block:hover {
+            opacity: 0.8;
+        }
+
+        .pill-talk {
+            gap: 5px;
+        }
+
+        .pill-talk .arrow {
+            font-size: 13px;
+            margin-left: 2px;
+            font-weight: 400;
+        }
+
+        /* ─── COPYRIGHT ─── */
+        .copyright {
+            position: absolute;
+            top: 82px;
+            right: 30px;
+            z-index: 100;
+            color: #FFFFFF;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            opacity: 0.72;
+            font-weight: 400;
+        }
+
+
+
+        /* ─── BOTTOM LEFT TAGLINE ─── */
+        .tagline {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            z-index: 100;
+            color: #FFFFFF;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.65;
+            letter-spacing: 0.01em;
+            opacity: 0.92;
+            max-width: 400px;
+        }
+
+        /* ─── BOTTOM RIGHT SCROLL INDICATOR ─── */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #FFFFFF;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 500;
+            opacity: 0.78;
+        }
+
+        .scroll-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .scroll-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ─── SUBTLE SHIMMER ON HERO TEXT ─── */
+        @keyframes textBreathe {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 1; }
+        }
+
+        .hero-title {
+            animation: textBreathe 6s ease-in-out infinite;
+        }
+
+        /* ─── SCROLL SECTIONS ─── */
+        .section-1 { background: #FFFFFF; width: 100vw; padding: 80px 0 70px 0; position: relative; }
+        .s1-label { margin-left: 28px; margin-top: 0; padding-top: 0; display: inline-block; }
+        .s1-label .num { font-size: 11px; font-weight: 400; font-family: 'DM Sans'; color: #222; letter-spacing: 0.04em; }
+        .s1-label .word1 { font-size: 11px; font-weight: 500; font-family: 'DM Sans'; color: #222; letter-spacing: 0.08em; text-transform: uppercase; margin-left: 4px; }
+        .s1-label .word2 { font-size: 11px; font-weight: 400; font-family: 'Playfair Display'; font-style: italic; color: #222; margin-left: 4px; }
+
+        .s1-headline { position: absolute; left: 27%; right: 28px; top: 80px; font-size: clamp(34px, 3.2vw, 46px); line-height: 1.18; color: #1a1a1a; margin: 0; }
+        .s1-headline .bold { font-family: 'Playfair Display'; font-weight: 700; font-style: normal; }
+        .s1-headline .light-italic { font-family: 'Playfair Display'; font-weight: 400; font-style: italic; }
+
+        .s1-content { margin-top: 130px; display: flex; width: 100%; height: 250px; align-items: center; }
+        .s1-left { width: 22%; padding-left: 28px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; position: relative; }
+        .s1-middle { width: 50%; display: flex; align-items: center; justify-content: flex-start; }
+        .s1-right { width: 28%; height: 100%; position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; }
+        
+        .s1-v-rule { width: 1px; background: #d0d0d0; height: 160px; margin-right: 28px; flex-shrink: 0; }
+        .s1-p { font-family: 'DM Sans'; font-size: 14px; font-weight: 400; line-height: 1.75; color: #333333; text-align: justify; max-width: 310px; margin: 0; }
+        .s1-asterisks { margin-left: auto; margin-right: 28px; font-size: 16px; letter-spacing: 0.5em; color: #888; font-family: 'DM Sans'; font-weight: 300; }
+        
+        .section-2 { background: #111111; width: 100vw; padding: 80px 28px 90px 28px; position: relative; color: white; }
+        .s2-label { margin-left: 0; margin-bottom: 28px; }
+        .s2-label .num { font-size: 11px; font-weight: 400; font-family: 'DM Sans'; color: rgba(255,255,255,0.7); letter-spacing: 0.04em; }
+        .s2-label .word1 { font-size: 11px; font-weight: 500; font-family: 'DM Sans'; color: #fff; text-transform: uppercase; letter-spacing: 0.08em; margin-left: 4px; }
+        .s2-label .word2 { font-size: 11px; font-weight: 400; font-family: 'Playfair Display'; font-style: italic; color: #fff; margin-left: 4px; }
+
+        .s2-cols { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; }
+        .s2-left { width: 55%; }
+        .s2-right { width: 40%; }
+        .s2-headline { font-size: clamp(36px, 4vw, 56px); line-height: 1.1; letter-spacing: -0.01em; margin: 0; }
+        .s2-headline .bold { font-family: 'Playfair Display'; font-weight: 700; font-style: normal; color: #FFFFFF; }
+        .s2-headline .light-italic { font-family: 'Playfair Display'; font-weight: 400; font-style: italic; color: #FFFFFF; }
+        .s2-p { font-family: 'DM Sans'; font-size: 14px; font-weight: 400; line-height: 1.75; color: rgba(255,255,255,0.72); max-width: 420px; margin: 0; }
+        .s2-link { margin-top: 20px; display: inline-block; font-family: 'DM Sans'; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #FFFFFF; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; transition: 0.2s; }
+        .s2-link:hover { opacity: 0.7; }
+        
+        /* ─── SERVICE ROWS (Appended inside Section 2) ─── */
+        .s2-row-separator { border: none; border-top: 1px solid rgba(255, 255, 255, 0.10); margin: 0; width: 100%; }
+        .s2-row { display: flex; flex-direction: row; width: 100%; padding: 48px 0 0 0; margin-top: 48px; }
+        .s2-row.first-row { margin-top: 50px; padding-top: 0; }
+        .s2-row-left { width: 27%; padding-left: 0; padding-right: 20px; display: flex; flex-direction: column; justify-content: space-between; min-height: 520px; }
+        .s2-row-label { margin-bottom: 0; }
+        .s2-row-label .num { font-family: 'DM Sans'; font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; }
+        .s2-row-label .word1 { font-family: 'DM Sans'; font-size: 11px; font-weight: 500; color: #fff; text-transform: uppercase; letter-spacing: 0.10em; margin-left: 4px; }
+        .s2-row-label .word2 { font-family: 'Playfair Display'; font-style: italic; font-weight: 400; font-size: 11px; color: #fff; margin-left: 4px; }
+        .s2-row-arrow-left { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.45); background: transparent; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; margin-top: auto; color: #fff; font-size: 16px; font-family: sans-serif; transition: 0.2s; }
+        .s2-row-arrow-left:hover { background: rgba(255,255,255,0.1); }
+        .s2-row-desc { margin-top: 14px; padding-bottom: 48px; font-family: 'DM Sans'; font-size: 13px; font-weight: 400; line-height: 1.65; color: rgba(255,255,255,0.70); text-align: left; max-width: 220px; }
+        .s2-row-right { width: 73%; display: flex; flex-direction: column; gap: 0; position: relative; }
+        .s2-row-header { display: flex; align-items: center; justify-content: space-between; padding-right: 0; margin-bottom: 20px; padding-top: 0; }
+        .s2-row-title { font-size: clamp(28px, 2.8vw, 40px); line-height: 1.1; letter-spacing: -0.01em; margin: 0; }
+        .s2-row-title .bold { font-family: 'Playfair Display'; font-weight: 700; font-style: normal; color: #FFFFFF; }
+        .s2-row-title .light-italic { font-family: 'Playfair Display'; font-weight: 400; font-style: italic; color: #FFFFFF; }
+        .s2-row-header-actions { display: flex; align-items: center; gap: 24px; }
+        .s2-row-view-link { font-family: 'DM Sans'; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #FFFFFF; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+        .s2-row-view-link:hover { opacity: 0.65; }
+        .s2-row-arrow-right { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.45); background: transparent; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; margin-right: 0; color: #fff; font-size: 16px; font-family: sans-serif; transition: 0.2s; flex-shrink: 0; }
+        .s2-row-arrow-right:hover { background: rgba(255,255,255,0.1); }
+        .s2-row-images { display: flex; flex-direction: row; gap: 8px; width: calc(100% + 28px); margin-right: -28px; overflow: hidden; }
+        .s2-row-img-left { width: 66%; height: 440px; object-fit: cover; object-position: center; display: block; flex-shrink: 0; border: none; border-radius: 0; }
+        .s2-row-img-right { width: 34%; height: 440px; object-fit: cover; object-position: center left; display: block; flex-shrink: 0; border: none; border-radius: 0; }
+
+        .custom-calendar {
+            position: absolute;
+            top: 100%;
+            left: -1px;
+            width: 320px;
+            background-color: #1C1B17;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            z-index: 200;
+            display: none;
+            padding: 24px;
+            box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.8);
+            cursor: default;
+        }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .calendar-month-year { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: #C9A96E; letter-spacing: 0.1em; text-transform: uppercase; margin: 0; }
+        .calendar-nav { cursor: pointer; color: rgba(255,255,255,0.4); font-size: 20px; line-height: 1; transition: color 0.2s; user-select: none; }
+        .calendar-nav:hover { color: #C9A96E; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .calendar-day-header { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(255,255,255,0.3); text-align: center; margin-bottom: 12px; font-weight: 500; }
+        .calendar-day { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #F0EBE0; text-align: center; padding: 10px 0; border-radius: 4px; cursor: pointer; transition: 0.2s; border: 1px solid transparent; }
+        .calendar-day:hover:not(.empty) { background-color: rgba(201, 169, 110, 0.15); color: #C9A96E; border-color: rgba(201, 169, 110, 0.3); }
+        .calendar-day.empty { visibility: hidden; pointer-events: none; }
+        .calendar-day.selected { background-color: #C9A96E !important; color: #111111 !important; font-weight: 700; border-color: #C9A96E !important; }
+
+        /* ─── CONSULTATION BAR ─── */
+        .consultation-bar {
+            width: 100%;
+            background-color: #1C1B17;
+            border-top: 1px solid rgba(255, 255, 255, 0.10);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            display: grid;
+            grid-template-columns: 1fr 1fr 280px;
+            grid-template-rows: 1fr 1fr;
+            min-height: 380px;
+            position: relative;
+            z-index: 10;
+        }
+        .consultation-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0px 72px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            position: relative;
+        }
+        .consultation-col.cell-tl { border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .consultation-col.cell-bl { border-right: 1px solid rgba(255,255,255,0.1); }
+        .consultation-col.cell-tr { border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .consultation-col.cell-br { border-right: 1px solid rgba(255,255,255,0.1); }
+        
+        .consultation-col:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        .consultation-label {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: rgba(255, 255, 255, 0.40);
+            margin-bottom: 12px;
+        }
+        .consultation-value {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            font-size: 26px;
+            letter-spacing: 0.01em;
+            color: #F0EBE0;
+            white-space: nowrap;
+        }
+        .consultation-value.placeholder {
+            color: rgba(240, 235, 224, 0.30);
+        }
+        .consultation-chevron {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 18px;
+            color: rgba(200, 175, 120, 0.80);
+            transform: rotate(90deg);
+            vertical-align: middle;
+            transition: transform 0.2s ease;
+        }
+        .consultation-chevron.open {
+            transform: rotate(270deg);
+        }
+        .consultation-cta {
+            grid-column: 3;
+            grid-row: 1 / span 2;
+            background-color: #C9A96E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.25s ease;
+            text-decoration: none;
+        }
+        .consultation-cta:hover {
+            background-color: #B8945A;
+        }
+        .consultation-cta-text {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: #111111;
+        }
+        .consultation-dropdown {
+            position: absolute;
+            top: 100%;
+            left: -1px;
+            min-width: 280px;
+            background-color: #1C1B17;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 0;
+            z-index: 100;
+            display: none;
+        }
+        .consultation-dropdown-item {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: rgba(240, 235, 224, 0.75);
+            padding: 12px 28px;
+            cursor: pointer;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .consultation-dropdown-item:hover {
+            background-color: rgba(201, 169, 110, 0.08);
+            color: #C9A96E;
+        }
+
+        /* ─── WORKS SECTION ─── */
+        .works-section {
+            width: 100%;
+            background-color: #111111;
+            padding: 120px 0 0 0;
+            position: relative;
+        }
+
+        .works-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 0 60px;
+            margin-bottom: 64px;
+        }
+
+        .works-label {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: rgba(201, 169, 110, 0.65);
+        }
+
+        .works-heading {
+            font-size: clamp(36px, 4vw, 56px);
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        .works-heading .wh-bold {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-style: normal;
+            color: #F0EBE0;
+        }
+
+        .works-heading .wh-golden {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-style: normal;
+            color: rgba(201, 169, 110, 0.90);
+        }
+
+        .works-heading .wh-italic {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(201, 169, 110, 0.90);
+        }
+
+        .works-grid {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .works-row {
+            display: flex;
+            width: 100%;
+            gap: 3px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .works-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .works-row:nth-child(1) { transition-delay: 0s; }
+        .works-row:nth-child(2) { transition-delay: 0.15s; }
+        .works-row:nth-child(3) { transition-delay: 0.30s; }
+
+        /* Row 1 */
+        .works-row-1 .cell-img-a { flex: 22; }
+        .works-row-1 .cell-meta  { flex: 20; }
+        .works-row-1 .cell-img-b { flex: 58; }
+        .works-row-1 .cell { height: 360px; }
+
+        /* Row 2 */
+        .works-row-2 .cell-img-a { flex: 25; }
+        .works-row-2 .cell-img-b { flex: 25; }
+        .works-row-2 .cell-meta  { flex: 25; }
+        .works-row-2 .cell-img-c { flex: 25; }
+        .works-row-2 .cell { height: 340px; }
+
+        /* Row 3 */
+        .works-row-3 .cell-meta  { flex: 22; }
+        .works-row-3 .cell-img-a { flex: 28; }
+        .works-row-3 .cell-img-b { flex: 50; }
+        .works-row-3 .cell { height: 380px; }
+
+        /* Image cells */
+        .cell-img {
+            background-color: #1E1D19;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cell-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .cell-img:hover img {
+            transform: scale(1.03);
+        }
+
+        .cell-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(17, 17, 17, 0.35) 0%,
+                transparent 60%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .cell-img:hover::after {
+            opacity: 1;
+        }
+
+        /* Metadata cells */
+        .cell-meta {
+            background-color: #111111;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .meta-row-a {
+            display: flex;
+            gap: 48px;
+            margin-bottom: 22px;
+        }
+
+        .meta-label {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            font-size: 11px;
+            text-transform: capitalize;
+            letter-spacing: 0.04em;
+            color: rgba(201, 169, 110, 0.55);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .meta-label svg {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+        }
+
+        .meta-value {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 0.01em;
+            color: #F0EBE0;
+            line-height: 1.2;
+        }
+
+        .meta-row-b {
+            display: flex;
+            flex-direction: column;
+        }
+
+    
+        /* ─── NEW TESTIMONIALS SECTION ─── */
+        .testimonials-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 40px;
+            background-color: #0E0D0B;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 820px;
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .testimonials-quote-mark {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 88px;
+            color: #C9A96E;
+            line-height: 1;
+            margin-bottom: 36px;
+            display: block;
+            text-align: center;
+            user-select: none;
+        }
+
+        .testimonials-slides {
+            position: relative;
+            width: 100%;
+            min-height: 220px;
+        }
+
+        .testimonials-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .testimonials-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            position: relative;
+        }
+
+        .testimonials-quote-text {
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-weight: 400 !important;
+            font-style: normal !important;
+            font-size: clamp(30px, 3vw, 44px);
+            line-height: 1.60;
+            letter-spacing: 0.005em;
+            color: #F0EBE0;
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto 48px auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #testimonials,
+        #testimonials *,
+        .testimonials-section,
+        .testimonials-section * {
+            box-sizing: border-box;
+        }
+
+        .testimonials-slide .testimonials-quote-text {
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-style: normal !important;
+            font-weight: 400 !important;
+        }
+
+        .testimonials-author {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            color: #C9A96E;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .testimonials-source {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 400;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.20em;
+            color: rgba(240, 235, 224, 0.38);
+            text-align: center;
+        }
+
+        .testimonials-dots {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 52px;
+        }
+
+        .t-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: rgba(240, 235, 224, 0.22);
+            transition: background-color 0.4s ease, transform 0.4s ease;
+            cursor: pointer;
+        }
+
+        .t-dot.active {
+            background-color: #C9A96E;
+            transform: scale(1.2);
+        }
+
+        /* ─── FOOTER ─── */
+        .site-footer {
+            width: 100%;
+            background-color: #0E0D0B;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 72px 80px 60px 80px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-columns {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+            width: 100%;
+        }
+
+        .footer-col-brand {
+            flex: 30;
+            padding-right: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .footer-brand-name {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #F0EBE0;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand-desc {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 1.75;
+            color: rgba(240, 235, 224, 0.50);
+            max-width: 280px;
+            margin: 0 0 32px 0;
+        }
+
+        .footer-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(240, 235, 224, 0.45);
+            cursor: pointer;
+            transition: border-color 0.2s ease, color 0.2s ease;
+            padding: 0;
+        }
+
+        .footer-icon-btn:hover {
+            border-color: rgba(201, 169, 110, 0.60);
+            color: #C9A96E;
+        }
+
+        .footer-col-links {
+            flex: 35;
+            padding-right: 60px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-col-label {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.20em;
+            color: rgba(240, 235, 224, 0.50);
+            margin-bottom: 20px;
+        }
+
+        .footer-tagline {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 20px;
+            line-height: 1.55;
+            color: #C9A96E;
+            margin: 0 0 32px 0;
+            max-width: 360px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-link {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            font-size: 13px;
+            color: rgba(240, 235, 224, 0.55);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            width: fit-content;
+        }
+
+        .footer-link:hover {
+            color: #F0EBE0;
+        }
+
+        .footer-col-newsletter {
+            flex: 35;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-email-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background-color: transparent;
+            position: relative;
+            height: 48px;
+        }
+
+        .footer-email-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            font-size: 13px;
+            color: #F0EBE0;
+            padding: 0 16px;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-email-input::placeholder {
+            color: rgba(240, 235, 224, 0.30);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        .footer-join-btn {
+            background: transparent;
+            border: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            color: #F0EBE0;
+            padding: 0 20px;
+            height: 100%;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .footer-join-btn:hover {
+            color: #C9A96E;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 60px;
+            width: 100%;
+        }
+
+        .footer-copyright {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: rgba(240, 235, 224, 0.28);
+        }
+
+/* ============================================
+   SCROLL ANIMATION SYSTEM — RAKSHA
+   ============================================ */
+
+/* BASE HIDDEN STATE — applied before element enters viewport */
+.anim-hidden {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: 
+    opacity 0.90s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.90s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+/* VISIBLE STATE — added by IntersectionObserver */
+.anim-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* SLOW VARIANT — for large hero-scale text elements */
+.anim-hidden.anim-slow {
+  transition:
+    opacity 1.20s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.20s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* FAST VARIANT — for small UI elements: labels, dots, icons */
+.anim-hidden.anim-fast {
+  transition:
+    opacity 0.60s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.60s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* FADE ONLY — for elements that should fade without moving 
+   (backgrounds, full-width dividers, image overlays) */
+.anim-fade {
+  opacity: 0;
+  transition: opacity 1.10s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
+}
+
+.anim-fade.anim-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* FROM LEFT — for elements that slide in from left */
+.anim-from-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition:
+    opacity 0.90s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.90s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+/* FROM RIGHT — for elements that slide in from right */
+.anim-from-right {
+  opacity: 0;
+  transform: translateX(28px);
+  transition:
+    opacity 0.90s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.90s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+/* STAGGER DELAYS — apply these alongside anim-hidden */
+.anim-delay-1 { transition-delay: 0.12s; }
+.anim-delay-2 { transition-delay: 0.24s; }
+.anim-delay-3 { transition-delay: 0.36s; }
+.anim-delay-4 { transition-delay: 0.48s; }
+.anim-delay-5 { transition-delay: 0.60s; }
+
+/* Hide mobile drawer on all viewports by default */
+.mobile-drawer {
+  display: none;
+}
+
+/* Hide mobile nav logo on desktop */
+.nav-logo-mobile {
+  display: none;
+}
+
+/* ============================================
+   MOBILE — PHONES (max-width: 767px)
+   ============================================ */
+@media (max-width: 767px) {
+
+  /* ═══ GLOBAL MOBILE RESETS ═══ */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  img, video {
+    max-width: 100% !important;
+    height: auto;
+  }
+
+  /* ─── ANIMATION TWEAK ─── */
+  .anim-hidden {
+    transform: translateY(24px);
+  }
+
+  /* ═══════════════════════════════════════════
+     BUG 1 — NAV: hide all pills, show only
+     grid icon + RAKSHA logo. Clean 60px strip.
+     ═══════════════════════════════════════════ */
+  nav {
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 60px !important;
+    background: rgba(14, 13, 11, 0.90) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    overflow: hidden !important;
+  }
+
+  .nav-left {
+    flex-shrink: 0 !important;
+  }
+
+  .nav-left .pill:not(.pill-grid) {
+    display: none !important;
+  }
+
+  .nav-right {
+    display: none !important;
+  }
+
+  .pill-grid {
+    z-index: 1001;
+  }
+
+  /* RAKSHA logo text — center of mobile nav bar */
+  .nav-logo-mobile {
+    display: block !important;
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+    font-size: 16px !important;
+    letter-spacing: 0.22em !important;
+    color: #FFFFFF !important;
+    text-transform: uppercase !important;
+    user-select: none !important;
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    pointer-events: none !important;
+  }
+
+  /* ─── MOBILE NAV DRAWER ─── */
+  .mobile-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    background: #0E0D0B !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 48px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.35s ease !important;
+  }
+
+  .mobile-drawer.open {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .mobile-drawer a {
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 400 !important;
+    font-style: italic !important;
+    font-size: 30px !important;
+    color: #F0EBE0 !important;
+    text-decoration: none !important;
+    letter-spacing: 0.02em !important;
+    transition: color 0.2s ease !important;
+  }
+
+  .mobile-drawer a:hover {
+    color: #C9A96E !important;
+  }
+
+  .mobile-drawer-close {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 44px !important;
+    height: 44px !important;
+    background: none !important;
+    border: none !important;
+    color: rgba(240, 235, 224, 0.60) !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 10000 !important;
+    border-radius: 0 !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     HERO ADJUSTMENTS
+     ═══════════════════════════════════════════ */
+  .hero-title {
+    font-size: clamp(52px, 16vw, 72px) !important;
+    white-space: nowrap !important;
+  }
+
+  .copyright {
+    display: none !important;
+  }
+
+  .tagline {
+    display: none !important;
+  }
+
+  .scroll-down {
+    bottom: 20px !important;
+    right: 20px !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     BUG 2 — BOOKING BAR: stack vertically
+     ═══════════════════════════════════════════ */
+  .consultation-bar {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: unset !important;
+    grid-template-rows: unset !important;
+    min-height: auto !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .consultation-col {
+    width: 100% !important;
+    height: 80px !important;
+    padding: 0 24px !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .consultation-col.cell-tl,
+  .consultation-col.cell-bl,
+  .consultation-col.cell-tr,
+  .consultation-col.cell-br {
+    border-right: none !important;
+  }
+
+  .consultation-label {
+    font-size: 9px !important;
+    letter-spacing: 0.18em !important;
+  }
+
+  .consultation-value {
+    font-size: 17px !important;
+  }
+
+  .consultation-cta {
+    grid-column: unset !important;
+    grid-row: unset !important;
+    width: 100% !important;
+    height: 60px !important;
+    border-left: none !important;
+  }
+
+  .custom-calendar {
+    width: calc(100vw - 48px) !important;
+    left: 0 !important;
+  }
+
+  .consultation-dropdown {
+    width: calc(100vw - 48px) !important;
+    left: 0 !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     BUG 3 — SUITES GRID: clean vertical cards
+     ═══════════════════════════════════════════ */
+  .works-section {
+    padding: 72px 0 0 0 !important;
+    overflow: hidden !important;
+  }
+
+  .works-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 0 24px !important;
+    gap: 12px !important;
+    margin-bottom: 36px !important;
+  }
+
+  .works-grid {
+    gap: 3px !important;
+  }
+
+  /* Every suite row becomes a clean vertical card */
+  .works-row,
+  .works-row-1,
+  .works-row-2,
+  .works-row-3 {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+    margin-bottom: 4px !important;
+    gap: 0 !important;
+  }
+
+  /* Every cell in suite rows */
+  .works-row .cell {
+    height: auto !important;
+    flex: none !important;
+    width: 100% !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  /* Image cells inside suite rows */
+  .works-row .cell-img {
+    width: 100% !important;
+    height: 260px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+  }
+
+  .works-row .cell-img img {
+    width: 100% !important;
+    height: 260px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    flex-shrink: 0 !important;
+    display: block !important;
+  }
+
+  /* Metadata/text blocks inside suite rows */
+  .works-row .cell-meta {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 28px 24px !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    background-color: #111111 !important;
+    z-index: 2 !important;
+    overflow: visible !important;
+    min-height: auto !important;
+    border: none !important;
+  }
+
+  /* Suite name text */
+  .works-row .cell-meta .meta-value {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow: visible !important;
+    max-height: none !important;
+    display: block !important;
+  }
+
+  /* Meta row layout */
+  .works-row .cell-meta .meta-row-a {
+    gap: 16px !important;
+    flex-direction: column !important;
+    margin-bottom: 16px !important;
+  }
+
+  .works-row .cell-meta .meta-row-b .meta-value {
+    font-size: 13px !important;
+    line-height: 1.70 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    max-height: none !important;
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    display: block !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     BUG 4 — ABOUT US: single column, no collision
+     ═══════════════════════════════════════════ */
+  .section-1 {
+    padding: 80px 24px !important;
+    overflow: hidden !important;
+  }
+
+  .s1-label {
+    margin-left: 0 !important;
+  }
+
+  .s1-headline {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    display: block !important;
+    width: 100% !important;
+    font-size: clamp(26px, 7.5vw, 36px) !important;
+    line-height: 1.22 !important;
+    margin-top: 28px !important;
+    margin-bottom: 40px !important;
+  }
+
+  .s1-content {
+    margin-top: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    clear: both !important;
+  }
+
+  .s1-left {
+    display: none !important;
+  }
+
+  .s1-right {
+    display: none !important;
+  }
+
+  .s1-middle {
+    width: 100% !important;
+    display: block !important;
+  }
+
+  .s1-v-rule {
+    height: 1px !important;
+    width: 60px !important;
+    margin-right: 0 !important;
+    margin-bottom: 24px !important;
+    display: block !important;
+    position: relative !important;
+  }
+
+  .s1-p {
+    font-size: 13px !important;
+    line-height: 1.72 !important;
+    max-width: 100% !important;
+    text-align: left !important;
+    display: block !important;
+    width: 100% !important;
+    position: relative !important;
+    clear: both !important;
+  }
+
+  /* Hide asterisks on mobile — can't position correctly */
+  .s1-asterisks {
+    display: none !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     BUG 5 — SERVICES: single column layout
+     ═══════════════════════════════════════════ */
+  .section-2 {
+    padding: 72px 24px !important;
+    overflow: hidden !important;
+  }
+
+  .s2-cols {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0 !important;
+  }
+
+  .s2-left {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .s2-headline {
+    display: block !important;
+    width: 100% !important;
+    font-size: clamp(30px, 9vw, 44px) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 24px !important;
+  }
+
+  .s2-right {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+  }
+
+  .s2-p {
+    display: block !important;
+    width: 100% !important;
+    font-size: 14px !important;
+    line-height: 1.70 !important;
+    max-width: 100% !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     BUG 6 — AMENITIES: single column stack
+     (Architectural Design / Fine Dining / Ultimate Escape)
+     ═══════════════════════════════════════════ */
+  .s2-row,
+  .s2-row.first-row {
+    flex-direction: column !important;
+    padding: 36px 0 0 0 !important;
+    margin-top: 36px !important;
+  }
+
+  .s2-row-left {
+    width: 100% !important;
+    min-height: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .s2-row-label {
+    width: 100% !important;
+    padding: 0 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .s2-row-right {
+    width: 100% !important;
+  }
+
+  .s2-row-header {
+    padding: 0 !important;
+    margin-bottom: 24px !important;
+  }
+
+  .s2-row-title {
+    font-size: clamp(26px, 8vw, 38px) !important;
+    width: 100% !important;
+  }
+
+  .s2-row-desc {
+    padding-bottom: 12px !important;
+    max-width: 100% !important;
+    font-size: 13px !important;
+    line-height: 1.70 !important;
+    width: 100% !important;
+  }
+
+  .s2-row-images {
+    flex-direction: column !important;
+    width: 100% !important;
+    margin-right: 0 !important;
+    gap: 3px !important;
+    overflow: hidden !important;
+  }
+
+  .s2-row-img-left,
+  .s2-row-img-right {
+    width: 100% !important;
+    height: 240px !important;
+    object-fit: cover !important;
+    display: block !important;
+    margin-bottom: 3px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .s2-row-arrow-left {
+    display: none !important;
+  }
+
+  .s2-row-separator {
+    margin: 0 24px !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     BUG 7 — TESTIMONIALS: fix ghost slides
+     ═══════════════════════════════════════════ */
+  .testimonials-section {
+    min-height: 100svh !important;
+    padding: 60px 24px !important;
+    overflow: hidden !important;
+  }
+
+  .testimonials-inner {
+    max-width: 100% !important;
+  }
+
+  .testimonials-quote-mark {
+    font-size: 52px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .testimonials-slides {
+    position: relative !important;
+    min-height: 220px !important;
+    width: 100% !important;
+  }
+
+  /* INACTIVE slides: completely hidden */
+  .testimonials-slide {
+    position: absolute !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* ACTIVE slide: visible and relative */
+  .testimonials-slide.active {
+    position: relative !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    z-index: 1 !important;
+  }
+
+  .testimonials-quote-text {
+    font-size: clamp(17px, 4vw, 22px) !important;
+    line-height: 1.65 !important;
+    max-width: 88vw !important;
+    margin: 0 auto 40px auto !important;
+    text-align: center !important;
+  }
+
+  .testimonials-author {
+    font-size: 10px !important;
+    letter-spacing: 0.22em !important;
+  }
+
+  .testimonials-source {
+    font-size: 9px !important;
+    letter-spacing: 0.18em !important;
+  }
+
+  .testimonials-dots {
+    margin-top: 36px !important;
+    gap: 9px !important;
+  }
+
+  .t-dot {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     BUG 8 — FOOTER: stack columns vertically
+     ═══════════════════════════════════════════ */
+  .site-footer {
+    padding: 60px 24px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+
+  .footer-columns {
+    flex-direction: column !important;
+    gap: 48px !important;
+  }
+
+  .footer-col-brand,
+  .footer-col-links,
+  .footer-col-newsletter {
+    flex: none !important;
+    width: 100% !important;
+    padding-right: 0 !important;
+  }
+
+  .footer-email-wrapper {
+    width: 100% !important;
+    display: flex !important;
+    height: 48px !important;
+  }
+
+  .footer-bottom {
+    justify-content: center !important;
+    margin-top: 48px !important;
+  }
+
+  .footer-copyright {
+    font-size: 9px !important;
+    text-align: center !important;
+  }
+
+  .footer-tagline {
+    font-size: 17px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: #C9A96E !important;
+  }
+
+  .footer-brand-desc {
+    max-width: 100% !important;
+  }
+
+}
+
+/* ============================================
+   TABLETS (min-width: 768px) AND (max-width: 1023px)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  /* ─── ANIMATION TWEAK ─── */
+  .anim-hidden {
+    transform: translateY(28px);
+  }
+
+  /* ─── NAV: hide less-essential pills, keep key ones ─── */
+  .nav-left .pill:not(.pill-grid) {
+    display: none !important;
+  }
+  .pill-grid {
+    z-index: 1001;
+  }
+
+  /* ─── MOBILE NAV DRAWER (also for tablets) ─── */
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.96);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .mobile-drawer.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mobile-drawer a {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 32px;
+    color: #F0EBE0;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+  }
+  .mobile-drawer a:hover {
+    color: #C9A96E;
+  }
+  .mobile-drawer-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 50%;
+    color: #FFFFFF;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1002;
+  }
+
+  /* ─── BOOKING BAR ─── */
+  .consultation-bar {
+    grid-template-columns: 1fr 1fr;
+    min-height: 280px;
+  }
+  .consultation-cta {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    height: 64px;
+  }
+  .consultation-value {
+    font-size: 20px;
+  }
+  .custom-calendar {
+    width: 300px;
+  }
+
+  /* ─── SUITES / WORKS GRID ─── */
+  .works-section {
+    padding: 80px 0 0 0;
+  }
+  .works-header {
+    padding: 0 32px;
+    margin-bottom: 48px;
+  }
+  .works-row {
+    flex-direction: column !important;
+    gap: 3px;
+  }
+  .works-row .cell {
+    height: auto !important;
+    flex: none !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+  .works-row .cell-img {
+    height: 300px !important;
+  }
+  .works-row .cell-img img {
+    height: 300px;
+  }
+  .works-row .cell-meta {
+    padding: 32px 32px !important;
+    min-height: auto;
+  }
+
+  /* ─── ABOUT US ─── */
+  .section-1 {
+    padding: 80px 32px;
+  }
+  .s1-label {
+    margin-left: 0;
+  }
+  .s1-headline {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    font-size: clamp(28px, 5vw, 40px);
+    margin-top: 28px;
+  }
+  .s1-content {
+    margin-top: 44px;
+    flex-direction: column;
+    height: auto;
+  }
+  .s1-left { display: none; }
+  .s1-right { display: none; }
+  .s1-middle {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .s1-v-rule {
+    height: 1px;
+    width: 80px;
+    margin-right: 0;
+    margin-bottom: 28px;
+  }
+  .s1-p {
+    max-width: 100%;
+    text-align: left;
+  }
+  .s1-asterisks {
+    margin-left: 0;
+    margin-top: 28px;
+  }
+
+  /* ─── SERVICES ─── */
+  .section-2 {
+    padding: 80px 32px;
+  }
+  .s2-cols {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .s2-left { width: 100%; }
+  .s2-right { width: 100%; margin-top: 24px; }
+  .s2-headline {
+    font-size: clamp(32px, 6vw, 48px);
+  }
+  .s2-p {
+    max-width: 100%;
+  }
+  .s2-row,
+  .s2-row.first-row {
+    flex-direction: column !important;
+    padding: 40px 0 0 0;
+    margin-top: 40px;
+  }
+  .s2-row-left {
+    width: 100% !important;
+    min-height: auto !important;
+    padding-right: 0 !important;
+    margin-bottom: 20px;
+  }
+  .s2-row-right {
+    width: 100% !important;
+  }
+  .s2-row-desc {
+    padding-bottom: 12px;
+    max-width: 100%;
+  }
+  .s2-row-images {
+    width: 100% !important;
+    margin-right: 0 !important;
+  }
+  .s2-row-img-left,
+  .s2-row-img-right {
+    height: 320px !important;
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials-section {
+    padding: 80px 32px;
+    min-height: auto;
+  }
+  .testimonials-slide {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    z-index: 0;
+  }
+  .testimonials-slide.active {
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    z-index: 1;
+  }
+  .testimonials-quote-text {
+    font-size: clamp(22px, 3.5vw, 30px) !important;
+    line-height: 1.6 !important;
+  }
+
+  /* ─── FOOTER ─── */
+  .site-footer {
+    padding: 60px 32px;
+  }
+  .footer-columns {
+    flex-direction: column;
+    gap: 48px;
+  }
+  .footer-col-brand,
+  .footer-col-links,
+  .footer-col-newsletter {
+    flex: none;
+    width: 100%;
+    padding-right: 0;
+  }
+  .footer-bottom {
+    justify-content: center;
+  }
+}
+
+    </style>
+</head>
+<body>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="Close menu">✕</button>
+    <a href="#hero" class="mobile-drawer-link">Home</a>
+    <a href="#about" class="mobile-drawer-link">About Us</a>
+    <a href="#amenities" class="mobile-drawer-link">Amenities</a>
+    <a href="#works" class="mobile-drawer-link">Suites</a>
+    <a href="#booking" class="mobile-drawer-link">Book Now</a>
+</div>
+
+<div class="hero" id="hero">
+
+    <!-- LAYER 1: Background image (behind everything) -->
+    <div class="hero-bg anim-fade hero-animate">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2800&q=85"
+             alt="Desert modernist architecture"
+             id="bgImage">
+    </div>
+
+    <!-- LAYER 2: Giant RAKSHA text -->
+    <div class="hero-text-layer">
+        <h1 class="hero-title anim-hidden anim-slow hero-animate" id="heroTitle">RAKSHA</h1>
+        <div style="margin-top: 50px; pointer-events: auto;">
+            <a href="#booking" class="pill hero-btn anim-hidden anim-fast anim-delay-3 hero-animate" style="font-size: 13px; padding: 14px 34px; letter-spacing: 0.15em;">BOOK NOW</a>
+        </div>
+    </div>
+
+    <!-- LAYER 3: Foreground (same image, masked to show building only) -->
+    <div class="hero-fg anim-fade hero-animate">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2800&q=85"
+             alt=""
+             aria-hidden="true"
+             id="fgImage">
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav id="mainNav">
+        <div class="nav-left">
+            <a href="#" class="pill pill-grid" aria-label="Menu">
+                <span class="dots">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </span>
+            </a>
+            <a href="#" class="pill">HOME</a>
+            <a href="#about" class="pill">ABOUT US</a>
+            <a href="#amenities" class="pill">AMENITIES</a>
+            <a href="#works" class="pill">SUITES</a>
+        </div>
+        <div class="nav-logo-mobile" aria-hidden="true">RAKSHA</div>
+        <div class="nav-right">
+            <a href="https://google.com/maps/place/raksha+hotel+greater+noida/data=!4m2!3m1!1s0x390cc19bf2e023a1:0x92fde52dabcebc32?sa=X&ved=1t:242&ictx=111" target="_blank" class="address-block">GREATER NOIDA, INDIA</a>
+            <a href="#booking" class="pill pill-talk">BOOK NOW<span class="arrow">↗</span></a>
+        </div>
+    </nav>
+
+    <!-- COPYRIGHT -->
+    <div class="copyright">© 2025</div>
+
+
+
+    <!-- BOTTOM LEFT TAGLINE -->
+    <div class="tagline">
+        Spaces crafted with restraint, light, and deep presence.<br>
+        Not built to impress — built to endure.
+    </div>
+
+    <!-- BOTTOM RIGHT SCROLL -->
+    <div class="scroll-down" id="scrollDown">
+        <span class="scroll-icon">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="7" stroke="white" stroke-width="1.2"/>
+                <circle cx="8" cy="8" r="2" fill="white"/>
+            </svg>
+        </span>
+        SCROLL DOWN
+    </div>
+
+</div>
+
+<!-- CONSULTATION BAR -->
+<div class="consultation-bar anim-hidden" id="booking">
+    <div class="consultation-col cell-tl" id="colArrival" role="button" tabindex="0">
+        <div class="consultation-label">ARRIVAL DATE</div>
+        <div class="consultation-value" id="valArrival">Oct 24, 2024</div>
+        <div class="custom-calendar" id="calendarArrival"></div>
+    </div>
+    <div class="consultation-col cell-bl" id="colCheckout" role="button" tabindex="0">
+        <div class="consultation-label">CHECKOUT DATE</div>
+        <div class="consultation-value" id="valCheckout">Oct 28, 2024</div>
+        <div class="custom-calendar" id="calendarCheckout"></div>
+    </div>
+    <div class="consultation-col cell-tr" id="colSuiteType" role="button" tabindex="0">
+        <div class="consultation-label">SUITE</div>
+        <div class="consultation-value" id="valSuiteType">Presidential Suite<span class="consultation-chevron" id="chevronSuiteType">›</span></div>
+        <div class="consultation-dropdown" id="dropdownSuiteType">
+            <div class="consultation-dropdown-item">Presidential Suite</div>
+            <div class="consultation-dropdown-item">Corner Suite</div>
+            <div class="consultation-dropdown-item">Ocean View</div>
+            <div class="consultation-dropdown-item">Penthouse</div>
+        </div>
+    </div>
+    <div class="consultation-col cell-br" role="button" tabindex="0">
+        <div class="consultation-label">PROMO CODE</div>
+        <div class="consultation-value placeholder">Optional</div>
+    </div>
+    <a href="#amenities" class="consultation-cta" role="button">
+        <span class="consultation-cta-text">BOOK NOW</span>
+    </a>
+</div>
+
+<!-- SECTION: OUR SUITES -->
+<section id="works" class="works-section">
+    <div class="works-header">
+        <div class="works-label anim-hidden anim-fast">(01) Stillness Meeting Luxury</div>
+        <h2 class="works-heading anim-hidden anim-slow anim-delay-1"><span class="wh-bold">Our </span><span class="wh-golden">Suites</span></h2>
+    </div>
+
+    <div class="works-grid">
+
+        <!-- ROW 1 -->
+        <div class="works-row works-row-1 anim-hidden">
+            <div class="cell cell-img cell-img-a">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Desert architecture exterior">
+            </div>
+            <div class="cell cell-meta anim-hidden anim-fast anim-delay-2">
+                <div class="meta-row-a">
+                    <div class="meta-field">
+                        <div class="meta-label">
+                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="6" cy="3.5" r="2.5" stroke="rgba(201,169,110,0.55)" stroke-width="1"/>
+                                <path d="M1.5 11C1.5 8.5 3.5 7 6 7C8.5 7 10.5 8.5 10.5 11" stroke="rgba(201,169,110,0.55)" stroke-width="1" stroke-linecap="round"/>
+                            </svg>
+                            Suite Name
+                        </div>
+                        <div class="meta-value">Presidential Suite</div>
+                    </div>
+
+                </div>
+                <div class="meta-row-b">
+                    <div class="meta-label">
+                        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 1C4 1 2.5 2.5 2.5 4.5C2.5 7.5 6 11 6 11C6 11 9.5 7.5 9.5 4.5C9.5 2.5 8 1 6 1Z" stroke="rgba(201,169,110,0.55)" stroke-width="1"/>
+                            <circle cx="6" cy="4.5" r="1.5" stroke="rgba(201,169,110,0.55)" stroke-width="1"/>
+                        </svg>
+                        Description
+                    </div>
+                    <div class="meta-value">An expansive retreat defined by soaring ceilings, bespoke furnishings, and panoramic city views. Designed for those who expect nothing less than absolute.</div>
+                </div>
+            </div>
+            <div class="cell cell-img cell-img-b">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80" alt="Modern desert villa">
+            </div>
+        </div>
+
+        <!-- ROW 2 -->
+        <div class="works-row works-row-2 anim-hidden anim-delay-1">
+            <div class="cell cell-img cell-img-a">
+                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80" alt="Architectural doorway">
+            </div>
+            <div class="cell cell-img cell-img-b">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="Interior living space">
+            </div>
+            <div class="cell cell-meta anim-hidden anim-fast anim-delay-2">
+                <div class="meta-row-a">
+                    <div class="meta-field">
+                        <div class="meta-label">
+                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="6" cy="3.5" r="2.5" stroke="rgba(201,169,110,0.55)" stroke-width="1"/>
+                                <path d="M1.5 11C1.5 8.5 3.5 7 6 7C8.5 7 10.5 8.5 10.5 11" stroke="rgba(201,169,110,0.55)" stroke-width="1" stroke-linecap="round"/>
+                            </svg>
+                            Suite Name
+                        </div>
+                        <div class="meta-value">Corner Suite</div>
+                    </div>
+
+                </div>
+                <div class="meta-row-b">
+                    <div class="meta-label">
+                        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 1C4 1 2.5 2.5 2.5 4.5C2.5 7.5 6 11 6 11C6 11 9.5 7.5 9.5 4.5C9.5 2.5 8 1 6 1Z" stroke="rgba(201,169,110,0.55)" stroke-width="1"/>
+                            <circle cx="6" cy="4.5" r="1.5" stroke="rgba(201,169,110,0.55)" stroke-width="1"/>
+                        </svg>
+                        Description
+                    </div>
+                    <div class="meta-value">Bathed in natural light from two exposures, the Corner Suite offers a quiet sense of openness — warm materials, curated details, and a view worth lingering over.</div>
+                </div>
+            </div>
+            <div class="cell cell-img cell-img-c">
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80" alt="Bedroom interior">
+            </div>
+        </div>
+
+        <!-- ROW 3 -->
+        <div class="works-row works-row-3 anim-hidden anim-delay-2">
+            <div class="cell cell-meta anim-hidden anim-fast anim-delay-2">
+                <div class="meta-row-a">
+                    <div class="meta-field">
+                        <div class="meta-label">
+                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="6" cy="3.5" r="2.5" stroke="rgba(201,169,110,0.55)" stroke-width="1"/>
+                                <path d="M1.5 11C1.5 8.5 3.5 7 6 7C8.5 7 10.5 8.5 10.5 11" stroke="rgba(201,169,110,0.55)" stroke-width="1" stroke-linecap="round"/>
+                            </svg>
+                            Suite Name
+                        </div>
+                        <div class="meta-value">Penthouse</div>
+                    </div>
+
+                </div>
+                <div class="meta-row-b">
+                    <div class="meta-label">
+                        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 1C4 1 2.5 2.5 2.5 4.5C2.5 7.5 6 11 6 11C6 11 9.5 7.5 9.5 4.5C9.5 2.5 8 1 6 1Z" stroke="rgba(201,169,110,0.55)" stroke-width="1"/>
+                            <circle cx="6" cy="4.5" r="1.5" stroke="rgba(201,169,110,0.55)" stroke-width="1"/>
+                        </svg>
+                        Description
+                    </div>
+                    <div class="meta-value">The pinnacle of the property. A private sky residence with wraparound terraces, a dedicated living pavilion, and uninterrupted horizon views in every direction.</div>
+                </div>
+            </div>
+            <div class="cell cell-img cell-img-a">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="Desert structure portrait">
+            </div>
+            <div class="cell cell-img cell-img-b">
+                <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1400&q=80" alt="Interior dining space">
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- SECTION 1 -->
+<div class="section-1" id="about">
+    <div class="s1-label anim-hidden anim-fast">
+        <span class="num">(02)</span> <span class="word1">ABOUT</span> <span class="word1">US</span>
+    </div>
+    <h2 class="s1-headline anim-hidden anim-slow anim-delay-1">
+        <span class="bold">We design </span><span class="light-italic">atmospheres,</span><span class="bold"> not just buildings.</span><br>
+        <span class="bold">Our work is defined by material honesty</span><br>
+        <span class="bold">and a </span><span class="light-italic">deep respect for nature.</span>
+    </h2>
+    <div class="s1-content">
+        <div class="s1-left">
+        </div>
+        <div class="s1-middle">
+            <div class="s1-v-rule"></div>
+            <p class="s1-p anim-hidden anim-delay-2">In a world overwhelmed by noise, we believe in the power of quiet architecture. Raw textures, sun-washed surfaces, and sculptural geometry create calm environments.</p>
+            <div class="s1-asterisks">* * *</div>
+        </div>
+        <div class="s1-right">
+        </div>
+    </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section-2">
+    <div class="s2-label anim-hidden anim-fast">
+        <span class="num">(03)</span> <span class="word1">OUR</span> <span class="word1">SERVICES</span>
+    </div>
+    <div class="s2-cols">
+        <div class="s2-left">
+            <h2 class="s2-headline anim-hidden anim-slow anim-delay-1">
+                <span class="bold">Timeless Services.</span><br><span class="bold">Singular Vision.</span>
+            </h2>
+        </div>
+        <div class="s2-right">
+            <p class="s2-p anim-hidden anim-delay-2">We offer a full range of hospitality services, with a focus on timeless minimalism and refined materiality.</p>
+        </div>
+    </div>
+
+    <!-- ROW 1: Architectural Design -->
+    <div class="s2-row first-row" id="amenities">
+        <div class="s2-row-left">
+            <div class="s2-row-label">
+                <span class="num">(01)</span> <span class="word1">FORMED WITH</span> <span class="word1">PRECISION</span>
+            </div>
+            <p class="s2-row-desc">When Stillness Meets Luxury</p>
+        </div>
+        <div class="s2-row-right">
+            <div class="s2-row-header">
+                <h3 class="s2-row-title"><span class="bold">Architectural</span> <span class="bold">Design</span></h3>
+            </div>
+            <div class="s2-row-images">
+                <img src="hotel-garden-1.png" alt="Nano Banana Hotel Garden 1" class="s2-row-img-left anim-hidden anim-slow anim-delay-2">
+                <img src="hotel-garden-2.png" alt="Nano Banana Hotel Garden 2" class="s2-row-img-right anim-hidden anim-slow anim-delay-2">
+            </div>
+        </div>
+    </div>
+
+    <hr class="s2-row-separator">
+
+    <!-- ROW 2: Fine Dining -->
+    <div class="s2-row">
+        <div class="s2-row-left">
+            <div class="s2-row-label">
+                <span class="num">(02)</span> <span class="word1">TASTE OF</span> <span class="word1">HEAVEN</span>
+            </div>
+            <p class="s2-row-desc">Crafting Moments of Pure Sophistication.</p>
+        </div>
+        <div class="s2-row-right">
+            <div class="s2-row-header">
+                <h3 class="s2-row-title"><span class="bold">Fine Dining</span></h3>
+            </div>
+            <div class="s2-row-images">
+                <img src="indian-dish.png" alt="Indian Dish Presentation" class="s2-row-img-left anim-hidden anim-slow anim-delay-2">
+                <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=85" alt="Professional Cooking" class="s2-row-img-right anim-hidden anim-slow anim-delay-2">
+            </div>
+        </div>
+    </div>
+
+    <hr class="s2-row-separator">
+
+    <!-- ROW 3: The Ultimate Escape -->
+    <div class="s2-row">
+        <div class="s2-row-left">
+            <div class="s2-row-label">
+                <span class="num">(03)</span> <span class="word1">WHERE LUXURY MEETS WATER:</span>
+            </div>
+            <p class="s2-row-desc">Curated for Comfort, Refined for You.</p>
+        </div>
+        <div class="s2-row-right">
+            <div class="s2-row-header">
+                <h3 class="s2-row-title"><span class="bold">The Ultimate Escape</span></h3>
+            </div>
+            <div class="s2-row-images">
+                <img src="pool_new.jpg" alt="Night Pool Raksha" class="s2-row-img-left anim-hidden anim-slow anim-delay-2">
+                <img src="bathtub.jpg" alt="Modern Bathtub Nano Banana" class="s2-row-img-right anim-hidden anim-slow anim-delay-2">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<!-- SECTION: TESTIMONIALS -->
+<section id="testimonials" class="testimonials-section anim-fade">
+    <div class="testimonials-inner">
+        <div class="testimonials-quote-mark anim-hidden anim-slow">&#8221;</div>
+        
+        <div class="testimonials-slides">
+            <div class="testimonials-slide active" data-index="0">
+                <div class="testimonials-quote-text anim-hidden anim-slow anim-delay-1">"An experience that transcends mere hospitality. Raksha is a study in silence, elegance, and the profound beauty of doing less, perfectly."</div>
+                <div class="testimonials-author anim-hidden anim-fast anim-delay-2">JULIANNE V.</div>
+                <div class="testimonials-source anim-hidden anim-fast anim-delay-3">GLOBAL EXPLORER MAGAZINE</div>
+            </div>
+            
+            <div class="testimonials-slide" data-index="1">
+                <div class="testimonials-quote-text">"Every space Raksha creates feels inevitable &mdash; as if it could not have existed any other way. Precision that makes you feel something."</div>
+                <div class="testimonials-author anim-hidden anim-fast anim-delay-2">MARCUS T.</div>
+                <div class="testimonials-source anim-hidden anim-fast anim-delay-3">ARCHITECTURAL DIGEST</div>
+            </div>
+            
+            <div class="testimonials-slide" data-index="2">
+                <div class="testimonials-quote-text">"Raksha does not simply design buildings. They sculpt the quality of light, of air, of time itself within a space. Nothing short of extraordinary."</div>
+                <div class="testimonials-author anim-hidden anim-fast anim-delay-2">ELENA S.</div>
+                <div class="testimonials-source anim-hidden anim-fast anim-delay-3">THE DESIGN OBSERVER</div>
+            </div>
+        </div>
+
+        <div class="testimonials-dots anim-hidden anim-fast anim-delay-4">
+            <span class="t-dot active" data-dot="0"></span>
+            <span class="t-dot" data-dot="1"></span>
+            <span class="t-dot" data-dot="2"></span>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer" class="site-footer">
+    <div class="footer-columns">
+
+        <!-- Column 1: Brand -->
+        <div class="footer-col-brand">
+            <div class="footer-brand-name anim-from-left">RAKSHA HOTELS</div>
+            <p class="footer-brand-desc anim-from-left anim-delay-1">
+                Designed for the modern nomad who seeks sanctuary in silence. 
+                Each location is a curated dialogue between heritage and 
+                contemporary luxury.
+            </p>
+            <div class="footer-icons anim-from-left anim-fast anim-delay-2">
+                <button class="footer-icon-btn" aria-label="Website">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                </button>
+                <button class="footer-icon-btn" aria-label="Share">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                        <circle cx="18" cy="5" r="3"/>
+                        <circle cx="6" cy="12" r="3"/>
+                        <circle cx="18" cy="19" r="3"/>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                </button>
+                <button class="footer-icon-btn" aria-label="Email">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Column 2: Book Direct / Links -->
+        <div class="footer-col-links anim-hidden anim-delay-1">
+            <div class="footer-col-label">BOOK DIRECT</div>
+            <p class="footer-tagline">
+                Member benefits include flexible check-in and exclusive spa access.
+            </p>
+            <nav class="footer-links">
+            </nav>
+        </div>
+
+        <!-- Column 3: Newsletter -->
+        <div class="footer-col-newsletter anim-from-right anim-delay-2">
+            <div class="footer-col-label">NEWSLETTER</div>
+            <div class="footer-email-wrapper">
+                <input type="email" class="footer-email-input" placeholder="Your email address" />
+                <button class="footer-join-btn">JOIN</button>
+            </div>
+            <div class="footer-phone" style="font-family:'DM Sans',sans-serif;font-weight:400;font-size:12px;color:rgba(240,235,224,0.50);margin-top:18px;letter-spacing:0.04em;">Phone no. — 0000 8989 99</div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom anim-fade anim-delay-3">
+        <span class="footer-copyright">&copy; 2024 RAKSHA HOTELS. ALL RIGHTS RESERVED.</span>
+    </div>
+</footer>
+
+<script>
+    // Use a more fitting desert architecture image
+    // Try multiple sources for the best desert modernist architecture match
+    const imageUrls = [
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2800&q=85',
+        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2800&q=85',
+        'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2800&q=85'
+    ];
+
+    // Preload images
+    const bgImg = document.getElementById('bgImage');
+    const fgImg = document.getElementById('fgImage');
+
+    function setImages(url) {
+        bgImg.src = url;
+        fgImg.src = url;
+    }
+
+    // Set initial image
+    setImages(imageUrls[0]);
+
+    // Error fallback
+    bgImg.onerror = function() {
+        setImages(imageUrls[1]);
+    };
+
+/* ============================================
+   RAKSHA SCROLL ANIMATION OBSERVER
+   ============================================ */
+(function() {
+  const animTargets = document.querySelectorAll(
+    '.anim-hidden, .anim-fade, .anim-from-left, .anim-from-right'
+  );
+
+  if (!animTargets.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('anim-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.10,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  animTargets.forEach(el => observer.observe(el));
+})();
+
+/* Hero entrance on page load */
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.hero-animate').forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add('anim-visible');
+      }, i * 150);
+    });
+  }, 200);
+});
+
+</script>
+
+<script>
+    // Custom Calendar Logic
+    function createCalendar(colId, valId, calendarId, initialDateStr) {
+        const col = document.getElementById(colId);
+        const valEl = document.getElementById(valId);
+        const cal = document.getElementById(calendarId);
+        
+        let selectedDate = new Date(initialDateStr);
+        if (isNaN(selectedDate.getTime())) selectedDate = new Date();
+        let viewDate = new Date(selectedDate);
+        
+        function draw() {
+            cal.innerHTML = '';
+            const header = document.createElement('div');
+            header.className = 'calendar-header';
+            
+            const prev = document.createElement('div');
+            prev.className = 'calendar-nav';
+            prev.innerHTML = '‹';
+            prev.onclick = (e) => { e.stopPropagation(); viewDate.setMonth(viewDate.getMonth() - 1); draw(); };
+            
+            const next = document.createElement('div');
+            next.className = 'calendar-nav';
+            next.innerHTML = '›';
+            next.onclick = (e) => { e.stopPropagation(); viewDate.setMonth(viewDate.getMonth() + 1); draw(); };
+            
+            const title = document.createElement('div');
+            title.className = 'calendar-month-year';
+            title.innerHTML = viewDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+            
+            header.appendChild(prev);
+            header.appendChild(title);
+            header.appendChild(next);
+            cal.appendChild(header);
+            
+            const grid = document.createElement('div');
+            grid.className = 'calendar-grid';
+            
+            const days = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+            days.forEach(d => {
+                const el = document.createElement('div');
+                el.className = 'calendar-day-header';
+                el.innerHTML = d;
+                grid.appendChild(el);
+            });
+            
+            const firstDay = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay();
+            const daysInMonth = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDate();
+            
+            for (let i = 0; i < firstDay; i++) {
+                const em = document.createElement('div');
+                em.className = 'calendar-day empty';
+                grid.appendChild(em);
+            }
+            
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.innerHTML = i;
+                
+                const cellDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), i);
+                if (cellDate.toDateString() === selectedDate.toDateString()) {
+                    dayEl.classList.add('selected');
+                }
+                
+                dayEl.onclick = (e) => {
+                    e.stopPropagation();
+                    selectedDate = cellDate;
+                    valEl.innerText = selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    cal.style.display = 'none';
+                    draw();
+                };
+                
+                grid.appendChild(dayEl);
+            }
+            cal.appendChild(grid);
+        }
+        
+        col.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = cal.style.display === 'block';
+            document.querySelectorAll('.custom-calendar, .consultation-dropdown').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.consultation-chevron').forEach(el => el.classList.remove('open'));
+            if (!isVisible) {
+                viewDate = new Date(selectedDate);
+                draw();
+                cal.style.display = 'block';
+            }
+        });
+        
+        cal.addEventListener('click', (e) => e.stopPropagation());
+        
+        draw();
+    }
+    
+    // Initialize Calendars
+    const colArrival = document.getElementById('colArrival');
+    if (colArrival) {
+        createCalendar('colArrival', 'valArrival', 'calendarArrival', 'Oct 24, 2024');
+        createCalendar('colCheckout', 'valCheckout', 'calendarCheckout', 'Oct 28, 2024');
+    }
+
+    // Global document click closing calendars
+    document.addEventListener('click', function() {
+        document.querySelectorAll('.custom-calendar').forEach(c => c.style.display = 'none');
+    });
+
+    // Consultation dropdown logic
+    const colSuiteType = document.getElementById('colSuiteType');
+    const dropdownSuiteType = document.getElementById('dropdownSuiteType');
+    const chevronSuiteType = document.getElementById('chevronSuiteType');
+    const valSuiteType = document.getElementById('valSuiteType');
+    const dropdownItems = document.querySelectorAll('.consultation-dropdown-item');
+
+    if(colSuiteType) {
+        colSuiteType.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (dropdownSuiteType.style.display === 'block') {
+                dropdownSuiteType.style.display = 'none';
+                chevronSuiteType.classList.remove('open');
+            } else {
+                dropdownSuiteType.style.display = 'block';
+                chevronSuiteType.classList.add('open');
+            }
+        });
+
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                valSuiteType.childNodes[0].nodeValue = item.innerText;
+                dropdownSuiteType.style.display = 'none';
+                chevronSuiteType.classList.remove('open');
+            });
+        });
+
+        document.addEventListener('click', function() {
+            dropdownSuiteType.style.display = 'none';
+            chevronSuiteType.classList.remove('open');
+        });
+    }
+
+    // Works Section — IntersectionObserver scroll reveal
+    const workRows = document.querySelectorAll('.works-row');
+    const rowObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                rowObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    workRows.forEach(row => rowObserver.observe(row));
+
+
+
+    // ─── TESTIMONIALS SLIDER ───
+    (function() {
+        const slides = document.querySelectorAll('.testimonials-slide');
+        const dots = document.querySelectorAll('.t-dot');
+        let currentSlide = 0;
+        let testimonialTimer;
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % slides.length;
+            goToSlide(next);
+        }
+
+        function startTimer() {
+            testimonialTimer = setInterval(nextSlide, 2000);
+        }
+
+        function resetTimer() {
+            clearInterval(testimonialTimer);
+            startTimer();
+        }
+
+        // Dot click — manual override resets timer
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                goToSlide(i);
+                resetTimer();
+            });
+        });
+
+        // Init
+        if (slides.length) {
+            startTimer();
+        }
+    })();
+
+/* ============================================
+   RAKSHA SCROLL ANIMATION OBSERVER
+   ============================================ */
+(function() {
+  const animTargets = document.querySelectorAll(
+    '.anim-hidden, .anim-fade, .anim-from-left, .anim-from-right'
+  );
+
+  if (!animTargets.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('anim-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.10,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  animTargets.forEach(el => observer.observe(el));
+})();
+
+/* Hero entrance on page load */
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.hero-animate').forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add('anim-visible');
+      }, i * 150);
+    });
+  }, 200);
+});
+
+/* ============================================
+   MOBILE NAV DRAWER LOGIC
+   ============================================ */
+(function() {
+  const drawer = document.getElementById('mobileDrawer');
+  const closeBtn = document.getElementById('mobileDrawerClose');
+  const gridBtn = document.querySelector('.pill-grid');
+  
+  if (!drawer || !gridBtn) return;
+
+  gridBtn.addEventListener('click', function(e) {
+    if (window.innerWidth < 1024) {
+      e.preventDefault();
+      e.stopPropagation();
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeDrawer);
+
+  drawer.querySelectorAll('.mobile-drawer-link').forEach(function(link) {
+    link.addEventListener('click', closeDrawer);
+  });
+
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 1024) {
+      closeDrawer();
+    }
+  });
+})();
+
+</script>
+
+
+</body>
+</html>
